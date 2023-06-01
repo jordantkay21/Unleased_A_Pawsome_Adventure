@@ -25,27 +25,36 @@ public class GameInput : MonoBehaviour
 
     private void Running_canceled(InputAction.CallbackContext obj)
     {
-        throw new System.NotImplementedException();
+        Player.Instance.SetMovementAnimation(.85f);
+        Player.Instance.SetSpeed(_walkingSpeed);
     }
 
     private void Running_performed(InputAction.CallbackContext obj)
     {
-        throw new System.NotImplementedException();
+        Player.Instance.SetMovementAnimation(.9f);
+        Player.Instance.SetSpeed(_runningSpeed);
     }
 
     private void Movement_canceled(InputAction.CallbackContext obj)
     {
-        throw new System.NotImplementedException();
+        Player.Instance.SetMovementAnimation(0f);
     }
 
     private void Movement_performed(InputAction.CallbackContext obj)
     {
-        throw new System.NotImplementedException();
+        Player.Instance.SetMovementAnimation(.85f);
+        Player.Instance.SetSpeed(_walkingSpeed);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        PlayerInputs();
+    }
+
+    private void PlayerInputs()
+    {
+        Vector2 move = _input.Dog.Movement.ReadValue<Vector2>();
+        Player.Instance.SetMovement(move);
     }
 }

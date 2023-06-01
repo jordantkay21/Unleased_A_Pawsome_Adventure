@@ -9,7 +9,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T: MonoSingleton<T>
     {
         get
         {
-            if (Instance == null)
+            if (_instance == null)
             {
                 Debug.Log(typeof(T).ToString() + " is Null");
             }

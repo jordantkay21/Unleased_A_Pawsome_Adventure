@@ -60,13 +60,18 @@
     <Compile Include="Assets\UNITY\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\PROJECT\Script\ActionMap\GameInputActions.cs" />
     <Compile Include="Assets\PROJECT\Script\ActionMap\GameInput.cs" />
-    <Compile Include="Assets\PROJECT\Script\MonoSingleton.cs" />
+    <Compile Include="Assets\PROJECT\Script\Managers\MonoSingleton.cs" />
+    <Compile Include="Assets\PolygonDog\Scripts\POLYGON_DogAnimationController.cs" />
+    <Compile Include="Assets\PolygonDog\Scripts\POLYGON_DogPrefabs.cs" />
+    <Compile Include="Assets\PolygonDog\Scripts\POLYGON_CameraController.cs" />
+    <Compile Include="Assets\PROJECT\Script\Managers\AvatarManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SYNTY\PolygonPrototype\Shaders\Prototype_Glass_Global.shader" />
     <None Include="Assets\SYNTY\PolygonPrototype\Shaders\Prototype_Object.shader" />
     <None Include="Assets\SYNTY\SimplePeople\Changelog.txt" />
     <None Include="Assets\SYNTY\PolygonPrototype\Shaders\Prototype_Global.shader" />
+    <None Include="Assets\PolygonDog\Documentation\Guide.txt" />
     <None Include="Assets\SYNTY\PolygonPrototype\Shaders\Prototype_Glass_Object.shader" />
   </ItemGroup>
   <ItemGroup>
@@ -822,6 +827,12 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

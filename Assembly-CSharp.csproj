@@ -56,22 +56,41 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PROJECT\Script\Player.cs" />
-    <Compile Include="Assets\UNITY\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\PROJECT\Script\ActionMap\GameInputActions.cs" />
-    <Compile Include="Assets\PROJECT\Script\ActionMap\GameInput.cs" />
-    <Compile Include="Assets\PROJECT\Script\Managers\MonoSingleton.cs" />
-    <Compile Include="Assets\PolygonDog\Scripts\POLYGON_DogAnimationController.cs" />
-    <Compile Include="Assets\PolygonDog\Scripts\POLYGON_DogPrefabs.cs" />
-    <Compile Include="Assets\PolygonDog\Scripts\POLYGON_CameraController.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Roof.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\PresetEditorComponent.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Tile.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Decoration.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Wall.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\CameraOrbit.cs" />
     <Compile Include="Assets\PROJECT\Script\Managers\AvatarManager.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Node.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\RoomGenerator.cs" />
+    <Compile Include="Assets\SYNTY\PolygonDog\Scripts\POLYGON_CameraController.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\TargetGenerator.cs" />
+    <Compile Include="Assets\PROJECT\Script\Player.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Window.cs" />
+    <Compile Include="Assets\PROJECT\Script\Managers\MonoSingleton.cs" />
+    <Compile Include="Assets\UNITY\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\SYNTY\PolygonDog\Scripts\POLYGON_DogAnimationController.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\DecoratorPoint.cs" />
+    <Compile Include="Assets\SYNTY\PolygonDog\Scripts\POLYGON_DogPrefabs.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Level.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Tools.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Door.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\RoomPreset.cs" />
+    <Compile Include="Assets\GameDevHQ\FileBase\Extensions\Systems\Utilities\Transparent_Background\Script\TransparentBackgroundScreenshotRecorder.cs" />
+    <Compile Include="Assets\PROJECT\Script\Rotation.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\Floor.cs" />
+    <Compile Include="Assets\RoomGen\Scripts\EventSystem.cs" />
+    <Compile Include="Assets\PROJECT\Script\ActionMap\InputManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SYNTY\PolygonPrototype\Shaders\Prototype_Glass_Global.shader" />
     <None Include="Assets\SYNTY\PolygonPrototype\Shaders\Prototype_Object.shader" />
     <None Include="Assets\SYNTY\SimplePeople\Changelog.txt" />
     <None Include="Assets\SYNTY\PolygonPrototype\Shaders\Prototype_Global.shader" />
-    <None Include="Assets\PolygonDog\Documentation\Guide.txt" />
+    <None Include="Assets\SYNTY\PolygonDog\Documentation\Guide.txt" />
     <None Include="Assets\SYNTY\PolygonPrototype\Shaders\Prototype_Glass_Object.shader" />
   </ItemGroup>
   <ItemGroup>
@@ -795,6 +814,9 @@
     <Reference Include="Unity.Services.Core">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Services.Core.Analytics">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Analytics.dll</HintPath>
     </Reference>
@@ -803,6 +825,9 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VisualScripting.Shared.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Shared.Editor.dll</HintPath>
@@ -827,12 +852,6 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>Library\ScriptAssemblies\com.unity.cinemachine.editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Cinemachine">
-      <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

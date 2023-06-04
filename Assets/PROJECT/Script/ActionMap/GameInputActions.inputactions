@@ -1,32 +1,32 @@
 {
-    "name": "PlayerInputActions",
+    "name": "GameInputActions",
     "maps": [
         {
-            "name": "Dog",
-            "id": "ebbab218-8f1d-46d7-8fda-5e4016055192",
+            "name": "CharacterSelection",
+            "id": "7b1de464-319f-4558-9d9a-e0185970a6d6",
             "actions": [
                 {
-                    "name": "Movement",
-                    "type": "Value",
-                    "id": "c9849720-e56a-47b6-a0f8-623320459a61",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Running",
+                    "name": "IncreaseCurrentCam",
                     "type": "Button",
-                    "id": "f56e1d50-087f-4933-89e6-62be41c1d06f",
+                    "id": "45064ea3-c5e5-42ee-8ed6-b5c25450ccdd",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "DecreaseCurrentCam",
                     "type": "Button",
-                    "id": "f6a6daa1-6103-44b0-970e-e14a5328b0bc",
+                    "id": "c47ae3f7-2619-4d17-abef-e7187730abf9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChooseCharacter",
+                    "type": "Button",
+                    "id": "bbf08758-f7fd-4531-8ea8-5e40f8ce66f7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -36,80 +36,36 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "1ce72282-18c5-47fd-b89d-7522af0a53ae",
-                    "path": "<Keyboard>/shift",
+                    "id": "1878080a-316f-4e41-9eab-dd5599d55f20",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Running",
+                    "action": "IncreaseCurrentCam",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "19ab66d1-1ff6-447b-80d3-44b85a6cd2c6",
+                    "id": "3efa055f-9689-4bd5-bf36-6520c6deb2b9",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DecreaseCurrentCam",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4cb8d361-f88f-4656-b37a-c6f8c108dd47",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "ChooseCharacter",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "2D Vector",
-                    "id": "779b0013-3d21-4a45-891a-66fe5d00c50d",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "cf68d0eb-1733-499e-9197-8be27793f5d1",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "90ee015e-e5a8-4f6f-977a-17178294c4ba",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "0d20fb67-1b7c-4616-8f81-7f351df9cfd5",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "6230f4c1-e1e0-4694-999f-111d6d198d4c",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }

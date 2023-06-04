@@ -24,31 +24,31 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
     ""name"": ""GameInputActions"",
     ""maps"": [
         {
-            ""name"": ""Dog"",
-            ""id"": ""ebbab218-8f1d-46d7-8fda-5e4016055192"",
+            ""name"": ""CharacterSelection"",
+            ""id"": ""7b1de464-319f-4558-9d9a-e0185970a6d6"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
-                    ""type"": ""Value"",
-                    ""id"": ""c9849720-e56a-47b6-a0f8-623320459a61"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Running"",
+                    ""name"": ""IncreaseCurrentCam"",
                     ""type"": ""Button"",
-                    ""id"": ""f56e1d50-087f-4933-89e6-62be41c1d06f"",
+                    ""id"": ""45064ea3-c5e5-42ee-8ed6-b5c25450ccdd"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""DecreaseCurrentCam"",
                     ""type"": ""Button"",
-                    ""id"": ""f6a6daa1-6103-44b0-970e-e14a5328b0bc"",
+                    ""id"": ""c47ae3f7-2619-4d17-abef-e7187730abf9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChooseCharacter"",
+                    ""type"": ""Button"",
+                    ""id"": ""bbf08758-f7fd-4531-8ea8-5e40f8ce66f7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -58,91 +58,47 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""1ce72282-18c5-47fd-b89d-7522af0a53ae"",
-                    ""path"": ""<Keyboard>/shift"",
+                    ""id"": ""1878080a-316f-4e41-9eab-dd5599d55f20"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Running"",
+                    ""action"": ""IncreaseCurrentCam"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""19ab66d1-1ff6-447b-80d3-44b85a6cd2c6"",
+                    ""id"": ""3efa055f-9689-4bd5-bf36-6520c6deb2b9"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DecreaseCurrentCam"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4cb8d361-f88f-4656-b37a-c6f8c108dd47"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""ChooseCharacter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""779b0013-3d21-4a45-891a-66fe5d00c50d"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""cf68d0eb-1733-499e-9197-8be27793f5d1"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""90ee015e-e5a8-4f6f-977a-17178294c4ba"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""0d20fb67-1b7c-4616-8f81-7f351df9cfd5"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""6230f4c1-e1e0-4694-999f-111d6d198d4c"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Dog
-        m_Dog = asset.FindActionMap("Dog", throwIfNotFound: true);
-        m_Dog_Movement = m_Dog.FindAction("Movement", throwIfNotFound: true);
-        m_Dog_Running = m_Dog.FindAction("Running", throwIfNotFound: true);
-        m_Dog_Jump = m_Dog.FindAction("Jump", throwIfNotFound: true);
+        // CharacterSelection
+        m_CharacterSelection = asset.FindActionMap("CharacterSelection", throwIfNotFound: true);
+        m_CharacterSelection_IncreaseCurrentCam = m_CharacterSelection.FindAction("IncreaseCurrentCam", throwIfNotFound: true);
+        m_CharacterSelection_DecreaseCurrentCam = m_CharacterSelection.FindAction("DecreaseCurrentCam", throwIfNotFound: true);
+        m_CharacterSelection_ChooseCharacter = m_CharacterSelection.FindAction("ChooseCharacter", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -199,58 +155,58 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Dog
-    private readonly InputActionMap m_Dog;
-    private IDogActions m_DogActionsCallbackInterface;
-    private readonly InputAction m_Dog_Movement;
-    private readonly InputAction m_Dog_Running;
-    private readonly InputAction m_Dog_Jump;
-    public struct DogActions
+    // CharacterSelection
+    private readonly InputActionMap m_CharacterSelection;
+    private ICharacterSelectionActions m_CharacterSelectionActionsCallbackInterface;
+    private readonly InputAction m_CharacterSelection_IncreaseCurrentCam;
+    private readonly InputAction m_CharacterSelection_DecreaseCurrentCam;
+    private readonly InputAction m_CharacterSelection_ChooseCharacter;
+    public struct CharacterSelectionActions
     {
         private @GameInputActions m_Wrapper;
-        public DogActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Dog_Movement;
-        public InputAction @Running => m_Wrapper.m_Dog_Running;
-        public InputAction @Jump => m_Wrapper.m_Dog_Jump;
-        public InputActionMap Get() { return m_Wrapper.m_Dog; }
+        public CharacterSelectionActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @IncreaseCurrentCam => m_Wrapper.m_CharacterSelection_IncreaseCurrentCam;
+        public InputAction @DecreaseCurrentCam => m_Wrapper.m_CharacterSelection_DecreaseCurrentCam;
+        public InputAction @ChooseCharacter => m_Wrapper.m_CharacterSelection_ChooseCharacter;
+        public InputActionMap Get() { return m_Wrapper.m_CharacterSelection; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(DogActions set) { return set.Get(); }
-        public void SetCallbacks(IDogActions instance)
+        public static implicit operator InputActionMap(CharacterSelectionActions set) { return set.Get(); }
+        public void SetCallbacks(ICharacterSelectionActions instance)
         {
-            if (m_Wrapper.m_DogActionsCallbackInterface != null)
+            if (m_Wrapper.m_CharacterSelectionActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_DogActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_DogActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_DogActionsCallbackInterface.OnMovement;
-                @Running.started -= m_Wrapper.m_DogActionsCallbackInterface.OnRunning;
-                @Running.performed -= m_Wrapper.m_DogActionsCallbackInterface.OnRunning;
-                @Running.canceled -= m_Wrapper.m_DogActionsCallbackInterface.OnRunning;
-                @Jump.started -= m_Wrapper.m_DogActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_DogActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_DogActionsCallbackInterface.OnJump;
+                @IncreaseCurrentCam.started -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnIncreaseCurrentCam;
+                @IncreaseCurrentCam.performed -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnIncreaseCurrentCam;
+                @IncreaseCurrentCam.canceled -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnIncreaseCurrentCam;
+                @DecreaseCurrentCam.started -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnDecreaseCurrentCam;
+                @DecreaseCurrentCam.performed -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnDecreaseCurrentCam;
+                @DecreaseCurrentCam.canceled -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnDecreaseCurrentCam;
+                @ChooseCharacter.started -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnChooseCharacter;
+                @ChooseCharacter.performed -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnChooseCharacter;
+                @ChooseCharacter.canceled -= m_Wrapper.m_CharacterSelectionActionsCallbackInterface.OnChooseCharacter;
             }
-            m_Wrapper.m_DogActionsCallbackInterface = instance;
+            m_Wrapper.m_CharacterSelectionActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
-                @Running.started += instance.OnRunning;
-                @Running.performed += instance.OnRunning;
-                @Running.canceled += instance.OnRunning;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @IncreaseCurrentCam.started += instance.OnIncreaseCurrentCam;
+                @IncreaseCurrentCam.performed += instance.OnIncreaseCurrentCam;
+                @IncreaseCurrentCam.canceled += instance.OnIncreaseCurrentCam;
+                @DecreaseCurrentCam.started += instance.OnDecreaseCurrentCam;
+                @DecreaseCurrentCam.performed += instance.OnDecreaseCurrentCam;
+                @DecreaseCurrentCam.canceled += instance.OnDecreaseCurrentCam;
+                @ChooseCharacter.started += instance.OnChooseCharacter;
+                @ChooseCharacter.performed += instance.OnChooseCharacter;
+                @ChooseCharacter.canceled += instance.OnChooseCharacter;
             }
         }
     }
-    public DogActions @Dog => new DogActions(this);
-    public interface IDogActions
+    public CharacterSelectionActions @CharacterSelection => new CharacterSelectionActions(this);
+    public interface ICharacterSelectionActions
     {
-        void OnMovement(InputAction.CallbackContext context);
-        void OnRunning(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnIncreaseCurrentCam(InputAction.CallbackContext context);
+        void OnDecreaseCurrentCam(InputAction.CallbackContext context);
+        void OnChooseCharacter(InputAction.CallbackContext context);
     }
 }

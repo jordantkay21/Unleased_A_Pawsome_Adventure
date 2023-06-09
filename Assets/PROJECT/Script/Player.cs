@@ -1,84 +1,156 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoSingleton<Player>
 {
-    #region Variables
-    private float _speed;
-
     [SerializeField]
-    private int _bonesCollected;
+    private Vector2 _move;
+    [SerializeField]
+    private float _currentSpeed;
+    [SerializeField]
+    private float _maxSpeed;
+    private float _maxWalk = 0.5f;
+    private float _maxRun = 1.0f;
+    private float _acceleration = 1;
+    private float _decelleration = 1;
 
-    private Vector2 _movement;
-    private bool _playerGrounded;
+    public bool isRunning;
+    [SerializeField]
+    private bool _isWalking;
+    [SerializeField]
+    private bool _isIdle;
 
-    private CharacterController _controller;
     private Animator _anim;
-    private float _animSpeed;
-    #endregion 
 
     private void Start()
     {
         _anim = GetComponent<Animator>();
         if (_anim == null)
-        {
-            Debug.LogError(gameObject.name + " Failed to connect the Animator");
-        }
+            Debug.LogError("Player failed to connect Animator");
+    }
 
-        _controller = GetComponent<CharacterController>();
-        if (_controller == null)
-        {
-            Debug.LogError(gameObject.name + " No Character Controller Present");
-        }
-
-        _animSpeed = 0f;
+    private void Update()
+    {
+        CalculateMovement();
+        _anim.SetFloat("Movement_f", _currentSpeed);
     }
 
     #region Movement
     public void SetMovement(Vector2 move)
     {
-        _movement = move;
+        _move = move;
     }
-    public void SetMovementAnimation(float animSpeed)
+    private void CalculateMovement()
     {
-        _animSpeed = animSpeed;
+        SetMaxSpeed();
+        SetIdle();
+        CalculateSpeed();
+        CalculateTurn();
+
+        transform.Translate(new Vector3(_move.x, 0, _move.y) * _currentSpeed);
     }
 
-    public void SetSpeed(float speed)
+    private void SetMaxSpeed()
     {
-        _speed = speed;
+        if (isRunning && _isWalking)
+            _maxSpeed = _maxRun;
+        else if (!isRunning && _isWalking)
+            _maxSpeed = _maxWalk;
+        else if (!_isWalking && isRunning)
+            _maxSpeed = 0.0f;
+        else
+            _maxSpeed = 0.0f;
+
+        if (_maxSpeed <= 0.0f)
+            _isIdle = true;
+        else
+            _isIdle = false;
+            
     }
 
-    private void Movement()
+    private IEnumerator TurnLeftRoutine()
     {
-        _playerGrounded = _controller.isGrounded;
-        float h = _movement.x;
-        float v = _movement.y;
+        _anim.SetInteger("TurnAngle_int", -90);
+        yield return new WaitForSeconds(.5f);
+        _anim.SetInteger("TurnAngle_int", 0);
+    }
 
-        transform.Rotate(transform.up, h);
+    private IEnumerator TurnRightRoutine()
+    {
+        _anim.SetInteger("TurnAngle_int", 90);
+        yield return new WaitForSeconds(.5f);
+        _anim.SetInteger("TurnAngle_int", 0);
+    }
 
+    private IEnumerator TurnAroundRoutine()
+    {
+        _anim.SetInteger("TurnAngle_int", 180);
+        yield return new WaitForSeconds(.5f);
+        _anim.SetInteger("TurnAngle_int", 0);
+    }
 
-        Vector3 direction = transform.forward * v;
-        Vector3 velocity = direction * _speed;
+    private void SetIdle()
+    {
+        if (_move.x == 0f && _move.y == 0f)
+            _isWalking = false;
+        else
+            _isWalking = true;
 
-        _anim.SetFloat("Speed_f", _animSpeed);
+    }
+    private void CalculateSpeed()
+    {
 
-        if (_playerGrounded)
+        if (_currentSpeed < _maxSpeed)
+            _currentSpeed += Time.deltaTime * _acceleration;
+        if (_currentSpeed > _maxSpeed && !isRunning)
+            _currentSpeed -= Time.deltaTime * _decelleration;
+        if (_currentSpeed > _maxSpeed && !_isWalking && isRunning)
+            _currentSpeed -= Time.deltaTime * _decelleration;
+        if (_currentSpeed > 0.0f && !_isWalking)
+            _currentSpeed -= Time.deltaTime * _decelleration;
+        if (_currentSpeed < 0.0f)
+            _currentSpeed = 0;
+
+    }
+
+    private void CalculateTurn()
+    {
+        if(_move.x < 0)
         {
-            velocity.y = 0f;
-        }
-        if (!_playerGrounded)
-        {
-            velocity.y += -2000f * Time.deltaTime;
+            if (_currentSpeed < .51f)
+                transform.Rotate(Vector3.up * Time.deltaTime * -45, Space.Self);
+            else if (_currentSpeed > .50)
+                transform.Rotate(Vector3.up * Time.deltaTime * -65, Space.Self);     
         }
 
-        _controller.Move(velocity * Time.deltaTime);
+        if(_move.x > 0)
+        {
+            if (_currentSpeed < .51f)
+                transform.Rotate(Vector3.up * Time.deltaTime * 45, Space.Self);
+            else if (_currentSpeed > .50)
+                transform.Rotate(Vector3.up * Time.deltaTime * 65, Space.Self);
+        }
+
+        if (_isIdle && Keyboard.current.aKey.wasPressedThisFrame)
+        {
+            _maxSpeed = 0.0f;
+            StartCoroutine(TurnLeftRoutine());
+        }
+
+        if (_isIdle && Keyboard.current.dKey.wasPressedThisFrame)
+        {
+            _maxSpeed = 0.0f;
+            StartCoroutine(TurnRightRoutine());
+        }
+
+        if (_isIdle && Keyboard.current.sKey.wasPressedThisFrame)
+        {
+            _maxSpeed = 0.0f;
+            StartCoroutine(TurnAroundRoutine());
+        }
     }
+
     #endregion
-
-    private void Update()
-    {
-        Movement();
-    }
 }

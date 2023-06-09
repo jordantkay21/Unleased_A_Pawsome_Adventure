@@ -36,6 +36,11 @@ public class AvatarManager : MonoSingleton<AvatarManager>
             cams.GetComponent<CinemachineVirtualCamera>().Priority = 10;
         }
 
+        foreach (var cams in _followCameras)
+        {
+            cams.SetActive(false);
+        }
+
         _selectionCameras[0].GetComponent<CinemachineVirtualCamera>().Priority = 11;
     }
 

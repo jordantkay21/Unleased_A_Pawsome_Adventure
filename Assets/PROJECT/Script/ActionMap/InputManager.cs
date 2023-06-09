@@ -13,10 +13,9 @@ public class InputManager : MonoBehaviour
         InitializeInputs();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        SetPlayerMovement();
     }
 
     private void InitializeInputs()
@@ -27,14 +26,19 @@ public class InputManager : MonoBehaviour
         _input.CharacterSelection.IncreaseCurrentCam.performed += IncreaseCurrentCam_performed;
         _input.CharacterSelection.DecreaseCurrentCam.performed += DecreaseCurrentCam_performed;
         _input.CharacterSelection.ChooseCharacter.performed += ChooseCharacter_performed;
+        _input.PlayerActions.Running.performed += Running_performed;
+        _input.PlayerActions.Running.canceled += Running_canceled;
         
     }
+
+
 
     #region Character Selection Actions
     private void ChooseCharacter_performed(InputAction.CallbackContext obj)
     {
         AvatarManager.Instance.SetCharacterCam();
         _input.CharacterSelection.Disable();
+        _input.PlayerActions.Enable();
     }
 
     private void DecreaseCurrentCam_performed(InputAction.CallbackContext obj)
@@ -48,4 +52,22 @@ public class InputManager : MonoBehaviour
     }
     #endregion
 
+    #region Movement
+
+    private void SetPlayerMovement()
+    {
+        var move = _input.PlayerActions.Movement.ReadValue<Vector2>();
+        Player.Instance.SetMovement(move);
+    }
+    private void Running_canceled(InputAction.CallbackContext obj)
+    {
+        Player.Instance.isRunning = false;
+    }
+
+    private void Running_performed(InputAction.CallbackContext obj)
+    {
+        Player.Instance.isRunning = true;
+    }
+
+    #endregion
 }

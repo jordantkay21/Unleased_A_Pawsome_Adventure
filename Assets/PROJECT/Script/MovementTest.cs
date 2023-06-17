@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoSingleton<Player>
+public class MovementTest : MonoBehaviour
 {
     [SerializeField]
     private Vector2 _direction;
@@ -17,11 +17,11 @@ public class Player : MonoSingleton<Player>
     public bool isRunning;
     [SerializeField]
     private bool _isWalking;
+    [SerializeField]
     private bool _isIdle;
 
     private Animator _anim;
 
-    
     private void Start()
     {
         _anim = GetComponent<Animator>();
@@ -29,26 +29,26 @@ public class Player : MonoSingleton<Player>
             Debug.LogError("Player failed to connect Animator");
     }
 
-    void Update()
+    private void Update()
     {
         CalculateMovement();
+        _anim.SetFloat("Movement_f", _currentSpeed);
     }
 
     #region Movement
-    public void SetDirection(Vector2 direction)
+    public void SetMovement(Vector2 move)
     {
-        _direction = direction;
+        _direction = move;
     }
     private void CalculateMovement()
     {
         SetMaxSpeed();
-        CalculateCurrentSpeed();
+        CalculateSpeed();
         CalculateTurn();
 
         _isWalking = CheckIsWalking();
 
         transform.Translate(new Vector3(_direction.x, 0, _direction.y) * _currentSpeed);
-        _anim.SetFloat("Movement_f", _currentSpeed);
     }
 
     private void SetMaxSpeed()
@@ -66,31 +66,44 @@ public class Player : MonoSingleton<Player>
             _isIdle = false;
     }
 
+    private IEnumerator TurnAnimationRoutine(int degree)
+    {
+        _anim.SetInteger("TurnAngle_int", degree);
+        yield return new WaitForSeconds(.5f);
+
+    }
+
+    private IEnumerator TurnRightRoutine()
+    {
+        _anim.SetInteger("TurnAngle_int", 90);
+        yield return new WaitForSeconds(.5f);
+        _anim.SetInteger("TurnAngle_int", 0);
+    }
+
+    private IEnumerator TurnAroundRoutine()
+    {
+        _anim.SetInteger("TurnAngle_int", 180);
+        yield return new WaitForSeconds(.5f);
+        _anim.SetInteger("TurnAngle_int", 0);
+    }
+
     private bool CheckIsWalking()
     {
         if (_direction.x == 0f && _direction.y == 0f)
             return false;
         else
             return true;
-
     }
-    private void CalculateCurrentSpeed()
+    private void CalculateSpeed()
     {
+
         if (_currentSpeed < _maxSpeed)
             _currentSpeed += Time.deltaTime;
-        if (_currentSpeed > _maxSpeed && !isRunning)
-            _currentSpeed -= Time.deltaTime;
-        if (_currentSpeed > 0.0f && !_isWalking)
+        if (_currentSpeed > _maxSpeed)
             _currentSpeed -= Time.deltaTime;
         if (_currentSpeed < 0.0f)
             _currentSpeed = 0;
-    }
 
-    private IEnumerator TurnAnimationRoutine(int degree)
-    {
-        _anim.SetInteger("TurnAngle_int", degree);
-        yield return new WaitForSeconds(.5f);
-        _anim.SetInteger("TurnAngle_int", 0);
     }
 
     private void CalculateTurn()
@@ -98,9 +111,9 @@ public class Player : MonoSingleton<Player>
         if (_direction.x < 0)
         {
             if (_currentSpeed < .51f)
-                transform.Rotate(Vector3.up * Time.deltaTime * -45);
+                transform.Rotate(Vector3.up * Time.deltaTime * -45, Space.Self);
             else if (_currentSpeed > .50)
-                transform.Rotate(Vector3.up * Time.deltaTime * -65);
+                transform.Rotate(Vector3.up * Time.deltaTime * -65, Space.Self);
         }
 
         if (_direction.x > 0)
@@ -114,21 +127,19 @@ public class Player : MonoSingleton<Player>
         if (_isIdle && Keyboard.current.aKey.wasPressedThisFrame)
         {
             _maxSpeed = 0.0f;
-            StartCoroutine(TurnAnimationRoutine(-90));
         }
 
         if (_isIdle && Keyboard.current.dKey.wasPressedThisFrame)
         {
             _maxSpeed = 0.0f;
-            StartCoroutine(TurnAnimationRoutine(90));
+            StartCoroutine(TurnRightRoutine());
         }
 
         if (_isIdle && Keyboard.current.sKey.wasPressedThisFrame)
         {
             _maxSpeed = 0.0f;
-            StartCoroutine(TurnAnimationRoutine(180));
+            StartCoroutine(TurnAroundRoutine());
         }
-
     }
 
     #endregion

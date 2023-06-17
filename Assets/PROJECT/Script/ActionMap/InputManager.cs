@@ -31,8 +31,6 @@ public class InputManager : MonoBehaviour
         
     }
 
-
-
     #region Character Selection Actions
     private void ChooseCharacter_performed(InputAction.CallbackContext obj)
     {
@@ -56,8 +54,8 @@ public class InputManager : MonoBehaviour
 
     private void SetPlayerMovement()
     {
-        var move = _input.PlayerActions.Movement.ReadValue<Vector2>();
-        Player.Instance.SetMovement(move);
+        Vector2 move = _input.PlayerActions.Movement.ReadValue<Vector2>();
+        Player.Instance.SetDirection(move);
     }
     private void Running_canceled(InputAction.CallbackContext obj)
     {

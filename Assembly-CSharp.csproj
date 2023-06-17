@@ -62,6 +62,7 @@
     <Compile Include="Assets\RoomGen\Scripts\Tile.cs" />
     <Compile Include="Assets\RoomGen\Scripts\Decoration.cs" />
     <Compile Include="Assets\RoomGen\Scripts\Wall.cs" />
+    <Compile Include="Assets\PROJECT\Script\MovementTest.cs" />
     <Compile Include="Assets\RoomGen\Scripts\CameraOrbit.cs" />
     <Compile Include="Assets\PROJECT\Script\Managers\AvatarManager.cs" />
     <Compile Include="Assets\RoomGen\Scripts\Node.cs" />

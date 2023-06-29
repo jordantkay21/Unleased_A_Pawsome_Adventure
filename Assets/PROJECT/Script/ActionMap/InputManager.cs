@@ -28,8 +28,10 @@ public class InputManager : MonoBehaviour
         _input.CharacterSelection.ChooseCharacter.performed += ChooseCharacter_performed;
         _input.PlayerActions.Running.performed += Running_performed;
         _input.PlayerActions.Running.canceled += Running_canceled;
+        _input.PlayerActions.Jump.performed += Jump_performed;
         
     }
+
 
     #region Character Selection Actions
     private void ChooseCharacter_performed(InputAction.CallbackContext obj)
@@ -65,6 +67,11 @@ public class InputManager : MonoBehaviour
     private void Running_performed(InputAction.CallbackContext obj)
     {
         Player.Instance.isRunning = true;
+    }
+
+    private void Jump_performed(InputAction.CallbackContext obj)
+    {
+        Player.Instance.IsJumping();
     }
 
     #endregion

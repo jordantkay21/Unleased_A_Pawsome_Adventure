@@ -16,6 +16,9 @@ public class AvatarManager : MonoSingleton<AvatarManager>
     private GameObject[] _followCameras; // 0-Dalmation | 1-GoldenRetriever | 2-GermanShepherd | 3-Greyhound | 4-Husky | 5-Ridgeback | 6-Doberman 
 
     [SerializeField]
+    private GameObject[] _DogAvatars; // 0-Dalmation | 1-GoldenRetriever | 2-GermanShepherd | 3-Greyhound | 4-Husky | 5-Ridgeback | 6-Doberman 
+
+    [SerializeField]
     private int _currentCam;
 
 
@@ -91,5 +94,6 @@ public class AvatarManager : MonoSingleton<AvatarManager>
             cams.SetActive(false);
         }
         _followCameras[_currentCam].SetActive(true);
+        //_DogAvatars[_currentCam].AddComponent<Player>();
     }
 }

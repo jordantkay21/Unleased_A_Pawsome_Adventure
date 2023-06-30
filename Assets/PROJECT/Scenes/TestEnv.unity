@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 89768174}
   - component: {fileID: 89768176}
   - component: {fileID: 89768177}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DalmationBlock
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89768171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.526, z: 0}
+  m_LocalPosition: {x: 0, y: 0.173, z: 0}
   m_LocalScale: {x: 1, y: 0.35473, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -830,7 +830,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556538890}
   m_LocalRotation: {x: -0.0000000071615407, y: 0.98648745, z: -0.16383696, w: -0.000000043120735}
-  m_LocalPosition: {x: -8.970195, y: 4.104728, z: 1.6842705}
+  m_LocalPosition: {x: -8.970195, y: 4.4657283, z: 0.37827027}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1588,12 +1588,12 @@ PrefabInstance:
     - target: {fileID: 2848849541652009288, guid: 10e648544a8c2934fa0d05c7d784ffe8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.094
+      value: 0.672
       objectReference: {fileID: 0}
     - target: {fileID: 2848849541652009288, guid: 10e648544a8c2934fa0d05c7d784ffe8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.268
+      value: -0.038
       objectReference: {fileID: 0}
     - target: {fileID: 2848849541652009288, guid: 10e648544a8c2934fa0d05c7d784ffe8,
         type: 3}
@@ -3181,17 +3181,7 @@ MonoBehaviour:
   _groundedLayers:
     serializedVersion: 2
     m_Bits: 64
-  _gravity: -10
-  _fallTimeout: 0.15
-  _fallTimeCalc: 0
-  _terminalVelocity: 53
-  _verticalVelocity: 0
-  _landSoftAnimValue: -12
-  _landMediumAnimValue: -15
-  _jumpHeight: 1.2
-  _jumpTimeout: 3
-  _jumpTimeCalc: 0
-  _jumpDelay: 0
+  _gravity: -9
   isRunning: 0
   _isWalking: 0
   _isIdle: 0
@@ -4371,7 +4361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102433905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.075, z: 0}
+  m_LocalPosition: {x: 0, y: -0.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

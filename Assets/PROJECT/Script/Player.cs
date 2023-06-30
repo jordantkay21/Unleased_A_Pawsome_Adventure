@@ -14,7 +14,7 @@ public class Player : MonoSingleton<Player>
     private float _currentSpeed;
     [SerializeField]
     private float _maxSpeed;
-    
+
     [Space(10)]
 
     [SerializeField]
@@ -37,7 +37,7 @@ public class Player : MonoSingleton<Player>
     private float _gravity;
 
     [Space(10)]
-
+    
     [Tooltip("Time required to pass before entering into a fall state. Usefull fow walking down stairs")]
     [SerializeField]
     private float _fallTimeout = 0.15f;
@@ -74,7 +74,7 @@ public class Player : MonoSingleton<Player>
     [Tooltip("Used to delay vertical incline until it matches with animation")]
     [SerializeField]
     private float _jumpDelay;
-
+    
     [Header("State Controls")]
     [SerializeField]
     public bool isRunning;
@@ -115,11 +115,7 @@ public class Player : MonoSingleton<Player>
         Vector3 velocity = new Vector3(0.0f, _verticalVelocity, 0.0f);
         float curSpeed = _currentSpeed * Input.GetAxis("Vertical");
         _controller.Move((forward * curSpeed) + (velocity * Time.deltaTime));
-        SetMaxSpeed();
-        CalculateCurrentSpeed();
-        JumpAndGravity();
-
-        _anim.SetFloat("Movement_f", _currentSpeed);
+        JumpingAndFalling();
     }
     #endregion
 
@@ -127,7 +123,11 @@ public class Player : MonoSingleton<Player>
     private void CalculateMovement()
     {
         CalculateTurn();
+        CalculateCurrentSpeed();
+        SetMaxSpeed();
         _isWalking = CheckIsWalking();
+
+        _anim.SetFloat("Movement_f", _currentSpeed);
     }
 
     #region Walking
@@ -135,13 +135,13 @@ public class Player : MonoSingleton<Player>
     {
         _directionInput = direction;
     }
-    
+
     private void SetMaxSpeed()
     {
         if (isRunning && _isWalking)
             _maxSpeed = _maxRun;
         else if (!isRunning && _isWalking)
-            _maxSpeed = _maxWalk; 
+            _maxSpeed = _maxWalk;
         else
             _maxSpeed = 0.0f;
 
@@ -228,35 +228,32 @@ public class Player : MonoSingleton<Player>
 
         return _isGrounded;
     }
-
+    
     public void IsJumping()
     {
         _isJumping = true;
     }
-
+    
     private IEnumerator JumpingRoutine()
     {
         _anim.SetTrigger("Jump_tr");
         _isJumping = false;
 
-        yield return new WaitForSeconds(_jumpDelay);
+        yield return new WaitForSeconds(0.2f);
         //the square root of Height * -2 * Gravity = how much velocity needed to reach desired height
         _verticalVelocity = Mathf.Sqrt(_jumpHeight * -2f * _gravity);
 
-
     }
-
-    private void JumpAndGravity()
+    
+    private void JumpingAndFalling()
     {
-        Debug.Log("Player is Grounded: " + GroundCheck());
         if (GroundCheck())
         {
             _anim.SetBool("Grounded_b", true);
-            Debug.Log("Player Animator Grounded");
             _fallTimeCalc = _fallTimeout;
 
 
-            if(_verticalVelocity < 0.0f)
+            if (_verticalVelocity < 0.0f)
                 _verticalVelocity = -2f;
 
             if (_isJumping && _jumpTimeCalc <= 0.0f)
@@ -270,22 +267,21 @@ public class Player : MonoSingleton<Player>
         else
         {
             _jumpTimeCalc = _jumpTimeout;
-
+            
             if (_fallTimeCalc >= 0.0f)
                 _fallTimeCalc -= Time.deltaTime;
             else
             {
                 _anim.SetBool("Grounded_b", false);
-                Debug.Log("Grounded Bool is False");
             }
         }
-
+        
         //apply gravity over time if under terminal velocity
-        if(_verticalVelocity < _terminalVelocity)
+        if (_verticalVelocity < _terminalVelocity)
             _verticalVelocity += _gravity * Time.deltaTime; 
     }
-
+   
     #endregion
-
+    
     #endregion
 }

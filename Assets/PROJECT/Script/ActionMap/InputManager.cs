@@ -29,9 +29,10 @@ public class InputManager : MonoBehaviour
         _input.PlayerActions.Running.performed += Running_performed;
         _input.PlayerActions.Running.canceled += Running_canceled;
         _input.PlayerActions.Jump.performed += Jump_performed;
-        
-    }
+        _input.PlayerActions.Bark.performed += Bark_performed;
+        _input.PlayerActions.Dig.performed += Dig_performed;
 
+    }
 
     #region Character Selection Actions
     private void ChooseCharacter_performed(InputAction.CallbackContext obj)
@@ -75,4 +76,19 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
+
+    #region Actions
+
+    private void Dig_performed(InputAction.CallbackContext obj)
+    {
+        Player.Instance.Dig();
+    }
+
+    private void Bark_performed(InputAction.CallbackContext obj)
+    {
+        Player.Instance.Bark();
+    }
+
+    #endregion
+
 }

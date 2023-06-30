@@ -86,6 +86,8 @@ public class Player : MonoSingleton<Player>
     private bool _isJumping;
     [SerializeField]
     private bool _isGrounded = true;
+    [SerializeField]
+    private bool _performingAction = false;
 
     [Header("Components")]
     private Animator _anim;
@@ -138,10 +140,15 @@ public class Player : MonoSingleton<Player>
 
     private void SetMaxSpeed()
     {
-        if (isRunning && _isWalking)
-            _maxSpeed = _maxRun;
-        else if (!isRunning && _isWalking)
-            _maxSpeed = _maxWalk;
+        if (!_performingAction)
+        {
+            if (isRunning && _isWalking)
+                _maxSpeed = _maxRun;
+            else if (!isRunning && _isWalking)
+                _maxSpeed = _maxWalk;
+            else
+                _maxSpeed = 0.0f;
+        }
         else
             _maxSpeed = 0.0f;
 
@@ -180,7 +187,7 @@ public class Player : MonoSingleton<Player>
 
     private void CalculateTurn()
     {
-        if (_directionInput.x < 0)
+        if (_directionInput.x < 0 && !_performingAction)
         {
             if (_currentSpeed < .05f)
                 transform.Rotate(Vector3.up * Time.deltaTime * -45);
@@ -188,7 +195,7 @@ public class Player : MonoSingleton<Player>
                 transform.Rotate(Vector3.up * Time.deltaTime * -65);
         }
 
-        if (_directionInput.x > 0)
+        if (_directionInput.x > 0 && !_performingAction)
         {
             if (_currentSpeed < .05f)
                 transform.Rotate(Vector3.up * Time.deltaTime * 45, Space.Self);
@@ -280,8 +287,33 @@ public class Player : MonoSingleton<Player>
         if (_verticalVelocity < _terminalVelocity)
             _verticalVelocity += _gravity * Time.deltaTime; 
     }
-   
+
     #endregion
-    
+
+    #endregion
+
+    #region Actions
+
+    public void Bark()
+    {
+        if(_currentSpeed < 0.01f)
+            StartCoroutine(ActionRoutine(1, 2.9f));
+    }
+
+    private IEnumerator ActionRoutine(int ActionType, float AnimationTime)
+    {
+        _performingAction = true;
+        _anim.SetInteger("ActionType_int", ActionType);
+        yield return new WaitForSeconds(AnimationTime);
+        _anim.SetInteger("ActionType_int", 0);
+        _performingAction = false;
+    }
+
+    public void Dig()
+    {
+        if(_currentSpeed < 0.01f)
+            StartCoroutine(ActionRoutine(4, 5.6f));
+    }
+
     #endregion
 }

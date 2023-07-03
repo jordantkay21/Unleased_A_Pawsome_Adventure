@@ -94,6 +94,6 @@ public class AvatarManager : MonoSingleton<AvatarManager>
             cams.SetActive(false);
         }
         _followCameras[_currentCam].SetActive(true);
-        //_DogAvatars[_currentCam].AddComponent<Player>();
+        _DogAvatars[_currentCam].AddComponent<Player>();
     }
 }

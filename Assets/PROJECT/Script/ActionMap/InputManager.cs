@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class InputManager : MonoBehaviour
 {
@@ -58,11 +59,18 @@ public class InputManager : MonoBehaviour
     private void SetPlayerMovement()
     {
         Vector2 move = _input.PlayerActions.Movement.ReadValue<Vector2>();
-        Player.Instance.SetDirection(move);
+        try
+        {
+            Player.Instance.SetDirection(move);
+        }
+        catch (NullReferenceException)
+        {
+            return;
+        }
     }
     private void Running_canceled(InputAction.CallbackContext obj)
     {
-        Player.Instance.isRunning = false;
+            Player.Instance.isRunning = false;
     }
 
     private void Running_performed(InputAction.CallbackContext obj)

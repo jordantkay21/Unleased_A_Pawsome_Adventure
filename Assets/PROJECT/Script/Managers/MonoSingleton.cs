@@ -11,7 +11,14 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T: MonoSingleton<T>
         {
             if (_instance == null)
             {
-                Debug.Log(typeof(T).ToString() + " is Null");
+                if (typeof(T).ToString() == "Player")
+                {
+
+                }
+                else
+                {
+                    Debug.Log(typeof(T).ToString() + " is Null");
+                }
             }
 
             return _instance;

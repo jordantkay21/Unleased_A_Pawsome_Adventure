@@ -18,9 +18,9 @@ public class Player : MonoSingleton<Player>
     [Space(10)]
 
     [SerializeField]
-    private float _maxWalk = 0.5f;
+    private float _maxWalk = 0.05f;
     [SerializeField]
-    private float _maxRun = 1.0f;
+    private float _maxRun = .075f;
 
     [Header("Gravity")]
     [Tooltip("Useful for rough ground")]
@@ -28,13 +28,13 @@ public class Player : MonoSingleton<Player>
     private float _groundOffset = -0.14f;
     [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
     [SerializeField]
-    private float _groundedRadius = 0.28f;
+    private float _groundedRadius = 0.2f;
     [Tooltip("What layers the character uses as ground")]
     [SerializeField]
     private LayerMask _groundedLayers;
     [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
     [SerializeField]
-    private float _gravity;
+    private float _gravity = -9;
 
     [Space(10)]
     
@@ -73,7 +73,7 @@ public class Player : MonoSingleton<Player>
     private float _jumpTimeCalc;
     [Tooltip("Used to delay vertical incline until it matches with animation")]
     [SerializeField]
-    private float _jumpDelay;
+    private float _jumpDelay = 3;
     
     [Header("State Controls")]
     [SerializeField]
@@ -95,8 +95,9 @@ public class Player : MonoSingleton<Player>
 
     #region System Methods
     private void Start()
-
     {
+        _groundedLayers = LayerMask.GetMask("Ground");
+
         _anim = GetComponent<Animator>();
         if (_anim == null)
             Debug.LogError("Player failed to connect Animator");
@@ -187,7 +188,7 @@ public class Player : MonoSingleton<Player>
 
     private void CalculateTurn()
     {
-        if (_directionInput.x < 0 && !_performingAction)
+        if (_directionInput.x < 0 && !_performingAction) 
         {
             if (_currentSpeed < .05f)
                 transform.Rotate(Vector3.up * Time.deltaTime * -45);
@@ -238,7 +239,10 @@ public class Player : MonoSingleton<Player>
     
     public void IsJumping()
     {
-        _isJumping = true;
+        if (!_performingAction)
+        {
+            _isJumping = true;
+        }
     }
     
     private IEnumerator JumpingRoutine()
@@ -290,17 +294,15 @@ public class Player : MonoSingleton<Player>
 
     #endregion
 
-    #endregion
-
     #region Actions
 
     public void Bark()
     {
-        if(_currentSpeed < 0.01f)
-            StartCoroutine(ActionRoutine(1, 2.9f));
+        if (_isIdle) 
+            StartCoroutine(ActionRoutine(1, 2.9f)); 
     }
 
-    private IEnumerator ActionRoutine(int ActionType, float AnimationTime)
+    private IEnumerator ActionRoutine(int ActionType, float AnimationTime) 
     {
         _performingAction = true;
         _anim.SetInteger("ActionType_int", ActionType);
@@ -311,9 +313,12 @@ public class Player : MonoSingleton<Player>
 
     public void Dig()
     {
-        if(_currentSpeed < 0.01f)
-            StartCoroutine(ActionRoutine(4, 5.6f));
+        if(_isIdle)
+            StartCoroutine(ActionRoutine(4, 5.6f)); 
     }
 
     #endregion
+    #endregion
+
+
 }

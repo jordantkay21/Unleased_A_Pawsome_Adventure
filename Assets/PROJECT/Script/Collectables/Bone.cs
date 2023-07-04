@@ -21,4 +21,14 @@ public class Bone : MonoBehaviour
     {
         transform.Rotate(new Vector3(0, 0, _rotationSpeed) * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            Player.Instance.BoneCollected();
+            Destroy(gameObject);
+        }
+    }
+
 }

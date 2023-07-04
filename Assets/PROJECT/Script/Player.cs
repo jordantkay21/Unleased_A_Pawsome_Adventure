@@ -93,6 +93,12 @@ public class Player : MonoSingleton<Player>
     private Animator _anim;
     private CharacterController _controller;
 
+
+    #region properties
+    public int _bonesCollected { get; private set; }
+    public int _bonesNeeded { get; private set; }
+    #endregion
+
     #region System Methods
     private void Start()
     {
@@ -105,6 +111,8 @@ public class Player : MonoSingleton<Player>
         _controller = GetComponent<CharacterController>();
         if (_controller == null)
             Debug.LogError("Player failed to connect to Character Controller");
+
+        SetBoneAmount(5);
     }
 
     void Update()
@@ -320,5 +328,18 @@ public class Player : MonoSingleton<Player>
     #endregion
     #endregion
 
+    #region Bones
+
+    public void SetBoneAmount(int boneAmount)
+    {
+        _bonesNeeded = boneAmount;
+    }
+
+    public void BoneCollected()
+    {
+        _bonesCollected++;
+    }
+
+    #endregion
 
 }

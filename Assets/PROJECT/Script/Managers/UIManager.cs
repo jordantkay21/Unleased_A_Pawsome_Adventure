@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
 
     private void BoneStats()
     {
-        _bonesText.SetText("BONES: " + Player.Instance._bonesCollected + "/" + Player.Instance._bonesNeeded);
+        if(Player.Instance != null)
+            _bonesText.SetText("BONES: " + Player.Instance._bonesCollected + "/" + Player.Instance._bonesNeeded);
     }
 }

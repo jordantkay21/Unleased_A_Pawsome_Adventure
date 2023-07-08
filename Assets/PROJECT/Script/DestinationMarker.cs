@@ -10,4 +10,12 @@ public class DestinationMarker : MonoBehaviour
         gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            SpawnManager.Instance.SpawnBones(GameManager.Instance.BonesNeeded);
+            gameObject.SetActive(false);
+        }
+    }
 }

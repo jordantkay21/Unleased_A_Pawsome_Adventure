@@ -95,6 +95,7 @@
     <Compile Include="Assets\RoomGen\Scripts\Floor.cs" />
     <Compile Include="Assets\RoomGen\Scripts\EventSystem.cs" />
     <Compile Include="Assets\PROJECT\Script\DestinationMarker.cs" />
+    <Compile Include="Assets\PROJECT\Script\Managers\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

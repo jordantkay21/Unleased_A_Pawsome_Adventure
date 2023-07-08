@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoSingleton<UIManager>
 {
     [Header("TEXTS")]
     [SerializeField]
@@ -15,9 +15,8 @@ public class UIManager : MonoBehaviour
         BoneStats();
     }
 
-    private void BoneStats()
+    public void BoneStats()
     {
-        if(Player.Instance != null)
-            _bonesText.SetText("BONES: " + Player.Instance._bonesCollected + "/" + Player.Instance._bonesNeeded);
+            _bonesText.SetText("BONES: " + GameManager.Instance.BonesCollected + "/" + GameManager.Instance.BonesNeeded);
     }
 }

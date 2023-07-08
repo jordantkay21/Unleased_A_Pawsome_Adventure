@@ -26,8 +26,8 @@ public class Bone : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Player.Instance.BoneCollected();
-            Destroy(gameObject);
+            GameManager.Instance.BoneCollected();
+            gameObject.SetActive(false);
         }
     }
 

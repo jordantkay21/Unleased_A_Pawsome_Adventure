@@ -58,7 +58,9 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         for (int i=0; i<boneAmount; i++)
         {
             int randomBone = Random.Range(0, _bonesToSpawn.Count - 1);
+            Debug.Log("Spawning " +_bonesToSpawn[randomBone].name + " to be collected");
             _bonesToSpawn[randomBone].SetActive(true);
+            Debug.Log("Removing " + _bonesToSpawn[randomBone].name + " from _bonesToSpawn list");
             _bonesToSpawn.RemoveAt(randomBone);
         }
     }
@@ -66,32 +68,37 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     public void SpawnDestinationMarker()
     {
         int randomMarker = Random.Range(0, _destinationMarkers.Count - 1);
+        Debug.Log(randomMarker + " destination was chosen");
         _destinationMarkers[randomMarker].SetActive(true);
         _destinationMarkers.RemoveAt(randomMarker);
 
-        switch (randomMarker)
+        switch (_destinationMarkers[randomMarker].name)
         {
-            case 0:
-                foreach(GameObject bone in _index0)
+            case "DestinationMarker (0)":
+                foreach (GameObject bone in _index0)
                 {
+                    Debug.Log("Adding Bone " + bone.name + " to _bonesToSpawn List");
                     _bonesToSpawn.Add(bone);
                 }
                 break;
-            case 1:
+            case "DestinationMarker (1)":
                 foreach (GameObject bone in _index1)
                 {
+                    Debug.Log("Adding Bone " + bone.name + " to _bonesToSpawn List");
                     _bonesToSpawn.Add(bone);
                 }
                 break;
-            case 2:
+            case "DestinationMarker (2)":
                 foreach (GameObject bone in _index2)
                 {
+                    Debug.Log("Adding Bone " + bone.name + " to _bonesToSpawn List");
                     _bonesToSpawn.Add(bone);
                 }
                 break;
-            case 3:
+            case "DestinationMarker (3)":
                 foreach (GameObject bone in _index3)
                 {
+                    Debug.Log("Adding Bone " + bone.name + " to _bonesToSpawn List");
                     _bonesToSpawn.Add(bone);
                 }
                 break;

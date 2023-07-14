@@ -64,6 +64,7 @@
     <Compile Include="Assets\RoomGen\Scripts\Tile.cs" />
     <Compile Include="Assets\RoomGen\Scripts\Decoration.cs" />
     <Compile Include="Assets\RoomGen\Scripts\Wall.cs" />
+    <Compile Include="Assets\PROJECT\Script\Managers\GameManager.cs" />
     <Compile Include="Assets\RoomGen\Scripts\CameraOrbit.cs" />
     <Compile Include="Assets\PROJECT\Script\Managers\AvatarManager.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\CanvasInputs\UICanvasControllerInput.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\RoomGen\Scripts\Node.cs" />
     <Compile Include="Assets\RoomGen\Scripts\RoomGenerator.cs" />
     <Compile Include="Assets\SYNTY\PolygonDog\Scripts\POLYGON_CameraController.cs" />
+    <Compile Include="Assets\PROJECT\Script\DestinationMarker.cs" />
     <Compile Include="Assets\RoomGen\Scripts\TargetGenerator.cs" />
     <Compile Include="Assets\PROJECT\Script\Player.cs" />
     <Compile Include="Assets\StarterAssets\Mobile\Scripts\VirtualInputs\UIVirtualJoystick.cs" />
@@ -94,8 +96,8 @@
     <Compile Include="Assets\GameDevHQ\FileBase\Extensions\Systems\Utilities\Transparent_Background\Script\TransparentBackgroundScreenshotRecorder.cs" />
     <Compile Include="Assets\RoomGen\Scripts\Floor.cs" />
     <Compile Include="Assets\RoomGen\Scripts\EventSystem.cs" />
-    <Compile Include="Assets\PROJECT\Script\DestinationMarker.cs" />
-    <Compile Include="Assets\PROJECT\Script\Managers\GameManager.cs" />
+    <Compile Include="Assets\PROJECT\Script\Managers\DestinationManager.cs" />
+    <Compile Include="Assets\PROJECT\Script\CustomClasses\Destination.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

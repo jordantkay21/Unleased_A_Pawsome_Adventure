@@ -9,6 +9,14 @@ public class UIManager : MonoSingleton<UIManager>
     [Header("TEXTS")]
     [SerializeField]
     private TextMeshProUGUI _bonesText;
+    [SerializeField]
+    private TextMeshProUGUI _gameOverText;
+
+    [Header("Buttons")]
+    [SerializeField]
+    private Button _quitButton;
+    [SerializeField]
+    private Button _restartButton;
 
     private void Update()
     {
@@ -17,6 +25,13 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void BoneStats()
     {
-            _bonesText.SetText("BONES: " + GameManager.Instance.BonesCollected + "/" + GameManager.Instance.BonesNeeded);
+        _bonesText.SetText("BONES: " + GameManager.Instance.bonesCollected + "/" + GameManager.Instance.bonesNeeded);
+    }
+
+    public void GameOver()
+    {
+        _gameOverText.gameObject.SetActive(true);
+        _quitButton.gameObject.SetActive(true);
+        _restartButton.gameObject.SetActive(true);
     }
 }

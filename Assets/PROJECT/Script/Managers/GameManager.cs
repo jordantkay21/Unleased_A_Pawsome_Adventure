@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    [SerializeField]
     private int _level = 1;
 
+    public bool markerActivated = false;
+
     #region properties
-    public int BonesCollected { get; private set; }
-    public int BonesNeeded { get; private set; }
+    public int bonesCollected { get; private set; }
+    public int bonesNeeded { get; private set; }
+
     #endregion
 
     private void Start()
@@ -19,12 +24,14 @@ public class GameManager : MonoSingleton<GameManager>
     private void Update()
     {
             UnlockDestination();
+
     }
+
     private void UnlockDestination()
     {
         
 
-        if (BonesNeeded != 0 && BonesCollected == BonesNeeded)
+        if (bonesNeeded != 0 && bonesCollected == bonesNeeded)
         {
             _level++;
             SpawnManager.Instance.SpawnDestinationMarker();
@@ -47,17 +54,27 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     #region Bones
 
     public void SetBoneAmount(int boneAmount)
     {
-        BonesCollected = 0;
-        BonesNeeded = boneAmount;
+        bonesCollected = 0;
+        bonesNeeded = boneAmount;
     }
 
     public void BoneCollected()
     {
-        BonesCollected++;
+        bonesCollected++;
     }
 
     #endregion

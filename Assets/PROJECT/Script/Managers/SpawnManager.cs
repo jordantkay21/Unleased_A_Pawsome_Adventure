@@ -8,7 +8,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     [SerializeField]
     private List<GameObject> _bonesToSpawn = new List<GameObject>();
     [SerializeField]
-    public List<Destination> destinationList;
+    private List<Destination> _destinationList;
 
 
 
@@ -24,7 +24,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         foreach (GameObject defaultBone in _bonesToSpawn)
             defaultBone.SetActive(false);
 
-        foreach(Destination store in destinationList)
+        foreach(Destination store in _destinationList)
         {
             foreach (GameObject bone in store.boneList)
                 bone.SetActive(false);
@@ -47,29 +47,24 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     {
         try
         {
-            int listIndex = Random.Range(0, destinationList.Count - 1);
-            Destination chosenDestination = destinationList[listIndex];
+            int listIndex = Random.Range(0, _destinationList.Count - 1);
+            Destination chosenDestination = _destinationList[listIndex];
 
             GameManager.Instance.markerActivated = true;
             chosenDestination.destinationMarker.SetActive(true);
             chosenDestination.doors.SetActive(false);
 
-            Debug.Log("bone list count is: " + chosenDestination.boneList.Count);
-
-            for (int i = 0; i <= destinationList[listIndex].boneList.Count - 1; i++)
+            for (int i = 0; i <= _destinationList[listIndex].boneList.Count - 1; i++)
             {
-                Debug.Log("For loop through Bone List is running and is on index: " + i);
-                _bonesToSpawn.Add(destinationList[listIndex].boneList[i]);
+                _bonesToSpawn.Add(_destinationList[listIndex].boneList[i]);
             }
 
-            destinationList.RemoveAt(listIndex);
+            _destinationList.RemoveAt(listIndex);
 
         }
         catch (System.ArgumentOutOfRangeException)
         {
             UIManager.Instance.GameOver();
         }
-
-
     }
 }

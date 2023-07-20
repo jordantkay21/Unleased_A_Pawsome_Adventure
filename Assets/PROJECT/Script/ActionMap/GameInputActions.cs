@@ -139,6 +139,15 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""91c383b7-84f1-49b2-a35a-f3f6de379812"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -240,6 +249,28 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Dig"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""527ad044-cc72-4961-a02c-180ce37bea79"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=0.05,y=0.05)"",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c08cc85e-27e3-4d0a-b3dc-ddaf65738fcd"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""InvertVector2(invertX=false),StickDeadzone,ScaleVector2(x=300,y=300)"",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -258,6 +289,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
         m_PlayerActions_Bark = m_PlayerActions.FindAction("Bark", throwIfNotFound: true);
         m_PlayerActions_Dig = m_PlayerActions.FindAction("Dig", throwIfNotFound: true);
+        m_PlayerActions_Look = m_PlayerActions.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -371,6 +403,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Jump;
     private readonly InputAction m_PlayerActions_Bark;
     private readonly InputAction m_PlayerActions_Dig;
+    private readonly InputAction m_PlayerActions_Look;
     public struct PlayerActionsActions
     {
         private @GameInputActions m_Wrapper;
@@ -380,6 +413,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
         public InputAction @Bark => m_Wrapper.m_PlayerActions_Bark;
         public InputAction @Dig => m_Wrapper.m_PlayerActions_Dig;
+        public InputAction @Look => m_Wrapper.m_PlayerActions_Look;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -404,6 +438,9 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                 @Dig.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDig;
                 @Dig.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDig;
                 @Dig.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDig;
+                @Look.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -423,6 +460,9 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                 @Dig.started += instance.OnDig;
                 @Dig.performed += instance.OnDig;
                 @Dig.canceled += instance.OnDig;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
             }
         }
     }
@@ -440,5 +480,6 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnBark(InputAction.CallbackContext context);
         void OnDig(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
     }
 }

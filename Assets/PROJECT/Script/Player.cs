@@ -5,6 +5,25 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoSingleton<Player>
 {
+    [Header("Cinemachine")]
+    [SerializeField]
+    private GameObject _mainCamera;
+
+    [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow:")]
+    public GameObject cinemachineCameraTarget;
+
+    [Tooltip("How far in degrees can you moce the camera up")]
+    [SerializeField]
+    private float _topClamp = 70.0f;
+
+    [Tooltip("How far in degrees can you move the camera down")]
+    [SerializeField]
+    private float _bottomClamp = -30.0f;
+
+    private float _cinemachineTargetYaw;
+    private float _cinemachineTargetPitch;
+    private const float _threshold = 0.01f;
+
     [Header("Direction")]
     [SerializeField]
     private Vector2 _directionInput;
@@ -92,7 +111,6 @@ public class Player : MonoSingleton<Player>
     [Header("Components")]
     private Animator _anim;
     private CharacterController _controller;
-
 
     #region System Methods
     private void Start()

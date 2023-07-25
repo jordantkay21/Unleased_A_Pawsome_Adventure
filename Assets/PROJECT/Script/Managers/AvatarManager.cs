@@ -92,6 +92,7 @@ public class AvatarManager : MonoSingleton<AvatarManager>
         selectedAvatar = _dogAvatars[_currentCam];
         _playerCam.Follow = selectedAvatar.transform;
         _playerCam.LookAt = selectedAvatar.transform;
+        selectedAvatar.SetActive(true);
         _playerCam.Priority = 12;
         
     }

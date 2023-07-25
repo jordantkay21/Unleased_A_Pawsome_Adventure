@@ -18,11 +18,6 @@ public class AvatarManager : MonoSingleton<AvatarManager>
     [SerializeField]
     private int _currentCam;
 
-   
-    public GameObject selectedAvatar;
-    [SerializeField]
-    private CinemachineVirtualCamera _playerCam;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -85,15 +80,19 @@ public class AvatarManager : MonoSingleton<AvatarManager>
 
     public void SetCharacterCam()
     {
+        GameObject selectedAvatar = PlayerManager.Instance.playerAvater;
+        CinemachineVirtualCamera playerCam = PlayerManager.Instance.playerCam;
+
         foreach (var cams in _selectionCameras)
         {
             cams.SetActive(false);
         }
+
         selectedAvatar = _dogAvatars[_currentCam];
-        _playerCam.Follow = selectedAvatar.transform;
-        _playerCam.LookAt = selectedAvatar.transform;
+        playerCam.Follow = selectedAvatar.transform;
+        playerCam.LookAt = selectedAvatar.transform;
         selectedAvatar.SetActive(true);
-        _playerCam.Priority = 12;
+        playerCam.Priority = 12;
         
     }
 }

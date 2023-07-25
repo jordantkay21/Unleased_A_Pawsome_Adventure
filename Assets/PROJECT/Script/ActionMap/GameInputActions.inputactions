@@ -83,13 +83,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Running",
-                    "type": "Button",
-                    "id": "330ed63a-b689-469f-954f-8104ca0924c5",
-                    "expectedControlType": "Button",
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "91c383b7-84f1-49b2-a35a-f3f6de379812",
+                    "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "Hold",
-                    "initialStateCheck": false
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Jump",
@@ -98,6 +98,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Running",
+                    "type": "Button",
+                    "id": "330ed63a-b689-469f-954f-8104ca0924c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -117,15 +126,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "91c383b7-84f1-49b2-a35a-f3f6de379812",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -141,18 +141,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "82475b02-0ad5-4f80-bef4-aa58464fc66b",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "2D Vector",
+                    "name": "WSAD",
                     "id": "cee089cb-dad9-4acc-ae45-0b3c98b2e174",
                     "path": "2DVector",
                     "interactions": "",
@@ -247,6 +236,17 @@
                     "processors": "InvertVector2(invertX=false),StickDeadzone,ScaleVector2(x=300,y=300)",
                     "groups": "",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "82475b02-0ad5-4f80-bef4-aa58464fc66b",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

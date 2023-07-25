@@ -105,13 +105,13 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Running"",
-                    ""type"": ""Button"",
-                    ""id"": ""330ed63a-b689-469f-954f-8104ca0924c5"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""91c383b7-84f1-49b2-a35a-f3f6de379812"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
-                    ""initialStateCheck"": false
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Jump"",
@@ -120,6 +120,15 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Running"",
+                    ""type"": ""Button"",
+                    ""id"": ""330ed63a-b689-469f-954f-8104ca0924c5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -139,15 +148,6 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""91c383b7-84f1-49b2-a35a-f3f6de379812"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -163,18 +163,7 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""82475b02-0ad5-4f80-bef4-aa58464fc66b"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""WSAD"",
                     ""id"": ""cee089cb-dad9-4acc-ae45-0b3c98b2e174"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -271,6 +260,17 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82475b02-0ad5-4f80-bef4-aa58464fc66b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -285,11 +285,11 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         // PlayerActions
         m_PlayerActions = asset.FindActionMap("PlayerActions", throwIfNotFound: true);
         m_PlayerActions_Movement = m_PlayerActions.FindAction("Movement", throwIfNotFound: true);
-        m_PlayerActions_Running = m_PlayerActions.FindAction("Running", throwIfNotFound: true);
+        m_PlayerActions_Look = m_PlayerActions.FindAction("Look", throwIfNotFound: true);
         m_PlayerActions_Jump = m_PlayerActions.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerActions_Running = m_PlayerActions.FindAction("Running", throwIfNotFound: true);
         m_PlayerActions_Bark = m_PlayerActions.FindAction("Bark", throwIfNotFound: true);
         m_PlayerActions_Dig = m_PlayerActions.FindAction("Dig", throwIfNotFound: true);
-        m_PlayerActions_Look = m_PlayerActions.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -399,21 +399,21 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerActions;
     private IPlayerActionsActions m_PlayerActionsActionsCallbackInterface;
     private readonly InputAction m_PlayerActions_Movement;
-    private readonly InputAction m_PlayerActions_Running;
+    private readonly InputAction m_PlayerActions_Look;
     private readonly InputAction m_PlayerActions_Jump;
+    private readonly InputAction m_PlayerActions_Running;
     private readonly InputAction m_PlayerActions_Bark;
     private readonly InputAction m_PlayerActions_Dig;
-    private readonly InputAction m_PlayerActions_Look;
     public struct PlayerActionsActions
     {
         private @GameInputActions m_Wrapper;
         public PlayerActionsActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerActions_Movement;
-        public InputAction @Running => m_Wrapper.m_PlayerActions_Running;
+        public InputAction @Look => m_Wrapper.m_PlayerActions_Look;
         public InputAction @Jump => m_Wrapper.m_PlayerActions_Jump;
+        public InputAction @Running => m_Wrapper.m_PlayerActions_Running;
         public InputAction @Bark => m_Wrapper.m_PlayerActions_Bark;
         public InputAction @Dig => m_Wrapper.m_PlayerActions_Dig;
-        public InputAction @Look => m_Wrapper.m_PlayerActions_Look;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -426,21 +426,21 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnMovement;
-                @Running.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRunning;
-                @Running.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRunning;
-                @Running.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRunning;
+                @Look.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
                 @Jump.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnJump;
+                @Running.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRunning;
+                @Running.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRunning;
+                @Running.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRunning;
                 @Bark.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnBark;
                 @Bark.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnBark;
                 @Bark.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnBark;
                 @Dig.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDig;
                 @Dig.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDig;
                 @Dig.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnDig;
-                @Look.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLook;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -448,21 +448,21 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Running.started += instance.OnRunning;
-                @Running.performed += instance.OnRunning;
-                @Running.canceled += instance.OnRunning;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Running.started += instance.OnRunning;
+                @Running.performed += instance.OnRunning;
+                @Running.canceled += instance.OnRunning;
                 @Bark.started += instance.OnBark;
                 @Bark.performed += instance.OnBark;
                 @Bark.canceled += instance.OnBark;
                 @Dig.started += instance.OnDig;
                 @Dig.performed += instance.OnDig;
                 @Dig.canceled += instance.OnDig;
-                @Look.started += instance.OnLook;
-                @Look.performed += instance.OnLook;
-                @Look.canceled += instance.OnLook;
             }
         }
     }
@@ -476,10 +476,10 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
     public interface IPlayerActionsActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnRunning(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnRunning(InputAction.CallbackContext context);
         void OnBark(InputAction.CallbackContext context);
         void OnDig(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
     }
 }

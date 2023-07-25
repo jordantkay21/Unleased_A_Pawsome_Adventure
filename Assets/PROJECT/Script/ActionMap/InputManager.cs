@@ -8,6 +8,19 @@ public class InputManager : MonoBehaviour
 {
     private GameInputActions _input;
 
+    [Header("Player Input Values")]
+    public Vector2 move;
+    public Vector2 look;
+    public bool jump;
+    public bool sprint;
+
+    [Header("Movement Settings")]
+    public bool analogMovement;
+
+    [Header("Mouse Cursor Settings")]
+    public bool cursorLocked = true;
+    public bool cursorInputForLook = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,5 +111,8 @@ public class InputManager : MonoBehaviour
     }
 
     #endregion
+
+
+
 
 }

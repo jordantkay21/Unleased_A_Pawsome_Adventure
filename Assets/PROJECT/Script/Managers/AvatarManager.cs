@@ -17,6 +17,7 @@ public class AvatarManager : MonoSingleton<AvatarManager>
 
     [SerializeField]
     private int _currentCam;
+    public GameObject selectedAvatar;
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +81,6 @@ public class AvatarManager : MonoSingleton<AvatarManager>
 
     public void SetCharacterCam()
     {
-        GameObject selectedAvatar = PlayerManager.Instance.playerAvater;
         CinemachineVirtualCamera playerCam = PlayerManager.Instance.playerCam;
 
         foreach (var cams in _selectionCameras)
@@ -89,8 +89,8 @@ public class AvatarManager : MonoSingleton<AvatarManager>
         }
 
         selectedAvatar = _dogAvatars[_currentCam];
-        playerCam.Follow = selectedAvatar.transform;
-        playerCam.LookAt = selectedAvatar.transform;
+        playerCam.Follow = selectedAvatar.transform.Find("PlayerCameraRoot");
+        playerCam.LookAt = selectedAvatar.transform.Find("PlayerCameraRoot");
         selectedAvatar.SetActive(true);
         playerCam.Priority = 12;
         

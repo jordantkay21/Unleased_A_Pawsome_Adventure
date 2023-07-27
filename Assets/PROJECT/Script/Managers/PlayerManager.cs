@@ -11,7 +11,8 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoSingleton<PlayerManager>
 {
     [Header("Player Properties")]
-    public GameObject playerAvater;
+    [SerializeField]
+    private Transform _playerAvatar;
     public CinemachineVirtualCamera playerCam;
 
     private PlayerInput _playerInput;
@@ -19,18 +20,6 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     private CharacterController _controller;
 
     private bool _hasAnimator;
-
-    private bool IsCurrentDeviceMouse
-    {
-        get
-        {
-#if ENABLE_INPUT_SYSTEM
-            return _playerInput.currentControlScheme == "KeyboardMouse";
-#else 
-            return false;
-#endif
-        }
-    }
 
     [Header("Camera Options")]
     [SerializeField]
@@ -46,7 +35,9 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     // Start is called before the first frame update
     void Start()
     {
-        _playerYaw = playerAvater.transform.rotation.eulerAngles.y;
+        _playerYaw = _playerAvatar.rotation.eulerAngles.y;
+
+        //_playerAvatar = AvatarManager.Instance.selectedAvatar;
         _hasAnimator = GetComponent<Animator>();
         _controller = GetComponent<CharacterController>();
         _playerInput = GetComponent<PlayerInput>();
@@ -55,11 +46,38 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     // Update is called once per frame
     void Update()
     {
-        
+        _playerAvatar = AvatarManager.Instance.selectedAvatar.transform.Find("PlayerCameraRoot");
+    }
+
+    private void LateUpdate()
+    {
+        CameraRotation();
+    }
+
+    private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
     private void CameraRotation()
     {
-        if()
+        //Don't multiply mouse input by Time.deltaTime
+        if(InputManager.Instance.look.sqrMagnitude >= _threshold)
+        {
+            float deltaTimeMultiplier = 1.0f;
+
+            _playerYaw += InputManager.Instance.look.x * deltaTimeMultiplier;
+            _playerPitch += InputManager.Instance.look.y * deltaTimeMultiplier;
+        }
+
+        //clamp rotations so values are limited 360 degrees
+        _playerYaw = ClampAngle(_playerYaw, float.MinValue, float.MaxValue);
+        _playerPitch = ClampAngle(_playerPitch, BottomClamp, TopClamp);
+
+        //Cinemachine will follow this target
+        _playerAvatar.rotation = Quaternion.Euler(_playerPitch, _playerYaw, 0.0f);
     }
 }

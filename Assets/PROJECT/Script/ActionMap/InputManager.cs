@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-public class InputManager : MonoBehaviour
+public class InputManager : MonoSingleton<InputManager>
 {
     private GameInputActions _input;
 
     [Header("Player Input Values")]
     public Vector2 move;
     public Vector2 look;
-    public bool jump;
-    public bool sprint;
+    public bool isJumping;
+    public bool isSprinting;
+    public bool isDigging;
+    public bool isBarking;
 
     [Header("Movement Settings")]
     public bool analogMovement;
@@ -29,7 +31,8 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        SetPlayerMovement();
+        MoveInput();
+        LookInput();
     }
 
     private void InitializeInputs()
@@ -40,13 +43,19 @@ public class InputManager : MonoBehaviour
         _input.CharacterSelection.IncreaseCurrentCam.performed += IncreaseCurrentCam_performed;
         _input.CharacterSelection.DecreaseCurrentCam.performed += DecreaseCurrentCam_performed;
         _input.CharacterSelection.ChooseCharacter.performed += ChooseCharacter_performed;
+        
         _input.PlayerActions.Running.performed += Running_performed;
         _input.PlayerActions.Running.canceled += Running_canceled;
         _input.PlayerActions.Jump.performed += Jump_performed;
+        _input.PlayerActions.Jump.canceled += Jump_canceled;
         _input.PlayerActions.Bark.performed += Bark_performed;
+        _input.PlayerActions.Bark.canceled += Bark_canceled;
         _input.PlayerActions.Dig.performed += Dig_performed;
+        _input.PlayerActions.Dig.canceled += Dig_canceled;
 
     }
+
+
 
     #region Character Selection Actions
     private void ChooseCharacter_performed(InputAction.CallbackContext obj)
@@ -69,31 +78,34 @@ public class InputManager : MonoBehaviour
 
     #region Movement
 
-    private void SetPlayerMovement()
+    private void MoveInput()
     {
-        Vector2 move = _input.PlayerActions.Movement.ReadValue<Vector2>();
-        try
-        {
-            Player.Instance.SetDirection(move);
-        }
-        catch (NullReferenceException)
-        {
-            return;
-        }
+        move = _input.PlayerActions.Movement.ReadValue<Vector2>();
     }
-    private void Running_canceled(InputAction.CallbackContext obj)
+
+    private void LookInput()
     {
-            Player.Instance.isRunning = false;
+        look = _input.PlayerActions.Look.ReadValue<Vector2>();
     }
 
     private void Running_performed(InputAction.CallbackContext obj)
     {
-        Player.Instance.isRunning = true;
+        isSprinting = true;
+    }
+
+    private void Running_canceled(InputAction.CallbackContext obj)
+    {
+        isSprinting = false;
     }
 
     private void Jump_performed(InputAction.CallbackContext obj)
     {
-        Player.Instance.IsJumping();
+        isJumping = true;
+    }
+
+    private void Jump_canceled(InputAction.CallbackContext obj)
+    {
+        isJumping = false;
     }
 
     #endregion
@@ -102,12 +114,22 @@ public class InputManager : MonoBehaviour
 
     private void Dig_performed(InputAction.CallbackContext obj)
     {
-        Player.Instance.Dig();
+        isDigging = true;
+    }
+
+    private void Dig_canceled(InputAction.CallbackContext obj)
+    {
+        isDigging = false; 
     }
 
     private void Bark_performed(InputAction.CallbackContext obj)
     {
-        Player.Instance.Bark();
+        isBarking = true;
+    }
+
+    private void Bark_canceled(InputAction.CallbackContext obj)
+    {
+        isBarking = false;
     }
 
     #endregion

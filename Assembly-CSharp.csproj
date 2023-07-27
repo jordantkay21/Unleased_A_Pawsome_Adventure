@@ -84,6 +84,7 @@
     <Compile Include="Assets\SYNTY\PolygonDog\Scripts\POLYGON_DogAnimationController.cs" />
     <Compile Include="Assets\PROJECT\Script\CustomClasses\Destination.cs" />
     <Compile Include="Assets\RoomGen\Scripts\DecoratorPoint.cs" />
+    <Compile Include="Assets\PROJECT\Script\Managers\PlayerManager.cs" />
     <Compile Include="Assets\PROJECT\Script\Managers\UIManager.cs" />
     <Compile Include="Assets\SYNTY\PolygonDog\Scripts\POLYGON_DogPrefabs.cs" />
     <Compile Include="Assets\RoomGen\Scripts\Level.cs" />
@@ -98,7 +99,6 @@
     <Compile Include="Assets\RoomGen\Scripts\Floor.cs" />
     <Compile Include="Assets\RoomGen\Scripts\EventSystem.cs" />
     <Compile Include="Assets\PROJECT\Script\Managers\DestinationManager.cs" />
-    <Compile Include="Assets\PROJECT\Script\Managers\PlayerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

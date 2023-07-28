@@ -81,6 +81,9 @@ public class AvatarManager : MonoSingleton<AvatarManager>
 
     public void SetCharacterCam()
     {
+        selectedAvatar = _dogAvatars[_currentCam];
+
+        PlayerManager.Instance.GetComponent<PlayerManager>().enabled = true;
         CinemachineVirtualCamera playerCam = PlayerManager.Instance.playerCam;
 
         foreach (var cams in _selectionCameras)
@@ -88,7 +91,6 @@ public class AvatarManager : MonoSingleton<AvatarManager>
             cams.SetActive(false);
         }
 
-        selectedAvatar = _dogAvatars[_currentCam];
         playerCam.Follow = selectedAvatar.transform.Find("PlayerCameraRoot");
         playerCam.LookAt = selectedAvatar.transform.Find("PlayerCameraRoot");
         selectedAvatar.SetActive(true);

@@ -1762,7 +1762,7 @@ PrefabInstance:
     - target: {fileID: 4796867437181548359, guid: 30c83ae0f0899b44492c23b154dea306,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30c83ae0f0899b44492c23b154dea306, type: 3}
@@ -4567,6 +4567,10 @@ MonoBehaviour:
   _playerAvatar: {fileID: 0}
   _playerRootCam: {fileID: 442936109}
   playerCam: {fileID: 421844381}
+  _animationBlend: 0
+  _animIDSpeed: 0
+  _animIDTurn: 0
+  _animIDMotionSpeed: 0
   TopClamp: 70
   BottomClamp: -30
   _playerYaw: 0
@@ -7287,7 +7291,7 @@ PrefabInstance:
     - target: {fileID: 2905904752409596199, guid: 70f48d29433d0d349b60c9a382b8bfd7,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2905904752416571203, guid: 70f48d29433d0d349b60c9a382b8bfd7,
         type: 3}
@@ -9568,7 +9572,7 @@ PrefabInstance:
     - target: {fileID: 42295787308722461, guid: 873c1321da0fd9b478bf384a5a7a7eac,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 42295787318238041, guid: 873c1321da0fd9b478bf384a5a7a7eac,
         type: 3}
@@ -10096,7 +10100,7 @@ PrefabInstance:
     - target: {fileID: 2499625870432145813, guid: 0ff6ed1dc8107b0449630806127ddffb,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2499625870439415787, guid: 0ff6ed1dc8107b0449630806127ddffb,
         type: 3}
@@ -10205,7 +10209,7 @@ PrefabInstance:
     - target: {fileID: 2848849541642665772, guid: 10e648544a8c2934fa0d05c7d784ffe8,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2848849541652009288, guid: 10e648544a8c2934fa0d05c7d784ffe8,
         type: 3}
@@ -11629,7 +11633,7 @@ PrefabInstance:
     - target: {fileID: 2389227707983200420, guid: fd0af8763900b5e438c746b1022ec4ad,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd0af8763900b5e438c746b1022ec4ad, type: 3}
@@ -13902,7 +13906,7 @@ PrefabInstance:
     - target: {fileID: 8232781024455817478, guid: 9b2d007e70cac3c4e92b5b6fc8fe2e26,
         type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8232781024465161026, guid: 9b2d007e70cac3c4e92b5b6fc8fe2e26,
         type: 3}

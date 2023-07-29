@@ -19,7 +19,17 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     private Animator _animator;
     private CharacterController _controller;
 
-    private bool _hasAnimator;
+
+    [Header("Player Animations")]
+    [SerializeField]
+    private float _animationBlend;
+    [SerializeField]
+    private int _animIDSpeed;
+    [SerializeField]
+    private int _animIDTurn;
+    [SerializeField]
+    private int _animIDMotionSpeed;
+
     #endregion
 
     #region Cinemachine
@@ -73,10 +83,11 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     {
         _playerYaw = _playerRootCam.rotation.eulerAngles.y;
 
-        //_playerAvatar = AvatarManager.Instance.selectedAvatar;
         _animator = _playerAvatar.GetComponent<Animator>();
         _controller = _playerAvatar.GetComponent<CharacterController>();
         _playerInput = _playerAvatar.GetComponent<PlayerInput>();
+
+        AssignAnimationIDs();
     }
 
     // Update is called once per frame
@@ -89,6 +100,16 @@ public class PlayerManager : MonoSingleton<PlayerManager>
     {
         CameraRotation();
     }
+
+    #region Animations
+    private void AssignAnimationIDs()
+    {
+        _animIDSpeed = Animator.StringToHash("Movement_f");
+        _animIDTurn = Animator.StringToHash("TurnAngle_int");
+        _animIDMotionSpeed = Animator.StringToHash("MotionSpeed_f");
+    }
+
+    #endregion
 
     #region Cinemachine
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
@@ -142,6 +163,10 @@ public class PlayerManager : MonoSingleton<PlayerManager>
             _speed = targetSpeed;
         }
 
+        _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * _speedChangeRate);
+        if (_animationBlend < 0.01f)
+            _animationBlend = 0f;
+
         Vector3 inputDirection = new Vector3(InputManager.Instance.move.x, 0.0f, InputManager.Instance.move.y).normalized;
 
         if(InputManager.Instance.move != Vector2.zero)
@@ -156,6 +181,9 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
         _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+        _animator.SetFloat(_animIDSpeed, _animationBlend);
+        _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
     }
 
     #endregion
